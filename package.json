@@ -2,6 +2,13 @@
   "name": "make-ssh-keys",
   "version": "0.1.0",
   "type": "module",
+  "description": "simple ssh-keygen implementation",
+  "funding": "https://github.com/sponsors/Jaid",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jaid/make-ssh-keys.git"
+  },
   "exports": {
     ".": {
       "default": "./src/main.ts"
@@ -10,10 +17,6 @@
   "imports": {
     "#src/*": "./src/*",
     "#root/*": "./*"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Jaid/make-ssh-keys.git"
   },
   "scripts": {
     "test": "bun test --max-concurrency 1 ./test"
@@ -24,7 +27,5 @@
     "eslint-config-jaid": "^26.0.0",
     "tsconfig-jaid-bun": "^15.2.0",
     "typescript": "^6.0.3"
-  },
-  "funding": "https://github.com/sponsors/Jaid",
-  "license": "MIT"
+  }
 }
