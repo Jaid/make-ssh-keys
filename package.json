@@ -28,5 +28,8 @@
     "tsconfig-jaid-bun": "^15.2.0",
     "type-fest": "^5.6.0",
     "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "es-toolkit": "^1.47.0"
   }
 }
