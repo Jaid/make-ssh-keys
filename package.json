@@ -19,6 +19,7 @@
     "#root/*": "./*"
   },
   "scripts": {
+    "build": "build_lib",
     "test": "bun test --max-concurrency 1 ./test"
   },
   "devDependencies": {
