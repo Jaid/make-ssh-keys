@@ -22,6 +22,9 @@
     "build": "build_lib",
     "test": "bun test --max-concurrency 1 ./test"
   },
+  "dependencies": {
+    "es-toolkit": "^1.51.0"
+  },
   "devDependencies": {
     "bun-types": "^1.4.0",
     "eslint": "^10.9.1",
@@ -29,8 +32,5 @@
     "tsconfig-jaid-bun": "^16.0.0",
     "type-fest": "^5.8.0",
     "typescript": "^7.0.2"
-  },
-  "dependencies": {
-    "es-toolkit": "^1.51.0"
   }
 }
