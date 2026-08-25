@@ -1,3 +1,6 @@
+import type {PrivateKeyFormat} from '#src/keys/PrivateKey.ts'
+
+import {generateEd25519KeyMaterial} from '#src/keyMaterial.ts'
 import PrivateKey from '#src/keys/PrivateKey.ts'
 import PublicKey from '#src/keys/PublicKey.ts'
 
@@ -7,29 +10,25 @@ export default class KeyPair {
     await key.init()
     return key
   }
-  private privateBytes: ArrayBuffer | undefined
-  private publicBytes: ArrayBuffer | undefined
-  getPrivateKey() {
-    if (!this.privateBytes) {
+
+  private material: Awaited<ReturnType<typeof generateEd25519KeyMaterial>> | undefined
+
+  getPrivateKey(options: {comment?: string
+    format?: PrivateKeyFormat} = {}) {
+    if (!this.material) {
       throw new Error('Key pair not generated yet')
     }
-    const privateKey = new PrivateKey(this.privateBytes)
-    return privateKey
+    return new PrivateKey(this.material, options.format ?? 'openssh', options.comment)
   }
-  getPublicKey() {
-    if (!this.publicBytes) {
+
+  getPublicKey(options: {comment?: string} = {}) {
+    if (!this.material) {
       throw new Error('Key pair not generated yet')
     }
-    const publicKey = new PublicKey(this.publicBytes)
-    return publicKey
+    return new PublicKey(this.material.publicKey, options.comment)
   }
+
   private async init() {
-    const pair = await crypto.subtle.generateKey('ed25519', true, ['sign', 'verify']) as CryptoKeyPair
-    const [privateBytes, publicBytes] = await Promise.all([
-      crypto.subtle.exportKey('pkcs8', pair.privateKey),
-      crypto.subtle.exportKey('spki', pair.publicKey),
-    ])
-    this.privateBytes = privateBytes
-    this.publicBytes = publicBytes
+    this.material = await generateEd25519KeyMaterial()
   }
 }

@@ -1,5 +1,7 @@
 import {chunk} from 'es-toolkit'
 
+import {encodeBase64} from '#src/encoding.ts'
+
 export default class Key {
   bytes: ArrayBuffer
   chunkSize: number | undefined
@@ -13,7 +15,7 @@ export default class Key {
   }
   getString() {
     const bytes = this.getBytes()
-    return Buffer.from(bytes).toString('base64')
+    return encodeBase64(bytes)
   }
   getText() {
     const string = this.getString()

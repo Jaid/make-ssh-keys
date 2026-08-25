@@ -1,12 +1,23 @@
+import type {PrivateKeyFormat} from '#src/keys/PrivateKey.ts'
+
 import KeyPair from '#src/KeyPair.ts'
 
-const makeSshKeys = async () => {
+export type {PrivateKeyFormat} from '#src/keys/PrivateKey.ts'
+
+export type MakeSshKeysOptions = {
+  comment?: string
+  privateKeyFormat?: PrivateKeyFormat
+}
+
+const makeSshKeys = async (options: MakeSshKeysOptions = {}) => {
   const key = await KeyPair.make()
-  const result = {
-    privateKey: key.getPrivateKey().getText(),
-    publicKey: key.getPublicKey().getText(),
+  return {
+    privateKey: key.getPrivateKey({
+      comment: options.comment,
+      format: options.privateKeyFormat,
+    }).getText(),
+    publicKey: key.getPublicKey({comment: options.comment}).getText(),
   }
-  return result
 }
 
 export default makeSshKeys
